@@ -11,7 +11,10 @@ Its a homebrew of Kubernetes in mac, or apt for kubernetes in linux
 
 > Helm is a graduated project in the CNCF and is maintained by the Helm community
 
-> Helm Packages are referred to as *Charts* - deployable unit for Kubernetes bound applications. 
+> Helm Packages are referred to as *Charts* - deployable unit for Kubernetes bound applications.
+
+![](images/2025-04-19-16-51-01.png)
+
 
 ## Helm started in 2015
 ![](images/2025-04-19-13-50-34.png)
@@ -72,7 +75,10 @@ https://helm.sh/docs/intro/install/
 ## Current Version 
 
 ```
-v3
+helm version
+
+Output:-
+version.BuildInfo{Version:"v3.17.3", GitCommit:"e4da49785aa6e6ee2b86efd5dd9e43400318262b", GitTreeState:"clean", GoVersion:"go1.24.2"}
 ```
 
 ## Helm chart from 1000 feet 
@@ -165,3 +171,134 @@ helm rollback myrelease 1
 
 ![](images/2025-04-19-14-44-42.png)
 
+## Create Chart for nodejstemplate Microservice 
+
+```
+helm create <NAME>
+helm create nodejstemplate
+```
+
+![](images/2025-04-19-22-30-31.png)
+
+## Do helm lint 
+
+```
+helm lint
+
+Output:-
+==> Linting .
+
+1 chart(s) linted, 0 chart(s) failed
+```
+
+## Dry run 
+
+```
+ helm install nodejstemplate nodejstemplate --dry-run --debug
+
+install.go:225: 2025-04-19 23:03:52.9329 +0800 +08 m=+0.024805293 [debug] Original chart version: ""
+install.go:242: 2025-04-19 23:03:52.932953 +0800 +08 m=+0.024857751 [debug] CHART PATH: /Users/alokadhao/Documents/github/imagincloud/helm-chart/nodejstemplate
+
+NAME: nodejstemplate
+LAST DEPLOYED: Sat Apr 19 23:03:54 2025
+NAMESPACE: default
+STATUS: pending-install
+REVISION: 1
+USER-SUPPLIED VALUES:
+{}
+
+COMPUTED VALUES:
+ContainerPort: 9001
+global:
+  namespace: default
+image:
+  pullPolicy: IfNotPresent
+  repository: casaacr01.azurecr.io/nodejstemplate
+  tag: v1.0.0
+name: nodejstemplate
+replicaCount: 1
+service:
+  port: 80
+  type: ClusterIP
+
+HOOKS:
+---
+# Source: nodejstemplate/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "nodejstemplate-test-connection"
+  labels:
+    helm.sh/chart: nodejstemplate-1.0.0
+    app.kubernetes.io/name: nodejstemplate
+    app.kubernetes.io/instance: nodejstemplate
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['nodejstemplate:80']
+  restartPolicy: Never
+MANIFEST:
+---
+# Source: nodejstemplate/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejstemplate
+  labels:
+    helm.sh/chart: nodejstemplate-1.0.0
+    app.kubernetes.io/name: nodejstemplate
+    app.kubernetes.io/instance: nodejstemplate
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+---
+# Source: nodejstemplate/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejstemplate-nodejstemplate
+  namespace: default
+  labels:
+    app: nodejstemplate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejstemplate
+  template:
+    metadata:
+      labels:
+        app: nodejstemplate
+    spec:
+      containers:
+        - name: nodejstemplate
+          image: casaacr01.azurecr.io/nodejstemplate:v1.0.0
+          ports:
+            - containerPort: 9001
+```
+
+## install nodejs Chart
+
+```
+helm install nodejstemplate nodejstemplate                  
+
+NAME: nodejstemplate
+LAST DEPLOYED: Sat Apr 19 23:05:04 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+```

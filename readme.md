@@ -302,3 +302,10 @@ REVISION: 1
 NOTES:
 1. Get the application URL by running these commands:
 ```
+
+## List Helm chart
+```
+helm list
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+nodejstemplate  default         1               2025-04-20 01:55:30.710903 +0800 +08    deployed        nodejstemplate-1.0.0    1.16.0 
+```

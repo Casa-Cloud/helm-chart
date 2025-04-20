@@ -29,12 +29,6 @@ https://semver.org/spec/v2.0.0.html
 
 ![](images/2025-04-19-13-52-33.png)
 
-## Security -  signing charts
-- Provenance - place of origin 
-- Provenance records are stored in provenance files, which are stored alongside a packaged chart. For example, if a chart is named myapp-1.2.3.tgz, its provenance file will be myapp-1.2.3.tgz.prov
-- Integrity / signing charts 
-- Provenance files are generated at packaging time (helm package --sign ...), and can be checked by multiple commands, notably helm install --verify
-
 ## Supported for all 3 major Platforms 
 ![](images/2025-04-19-14-03-46.png)
 

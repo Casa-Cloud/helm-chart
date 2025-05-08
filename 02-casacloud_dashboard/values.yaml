@@ -1,0 +1,17 @@
+global:
+  namespace: ""
+name: casacloud_dashboard
+replicaCount: 1
+image:
+  repository: ""
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+ContainerPort: 80
+service:
+  type: ClusterIP
+  port: 80
+env:
+  APP_PORT: "9001"
+  SWAGGER_ENABLE: "true"

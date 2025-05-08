@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "nodejstemplate.fullname" . }}-test-connection"
-  labels:
-    {{- include "nodejstemplate.labels" . | nindent 4 }}
+  name: "{{ .Values.name }}-test-connection"
   annotations:
     "helm.sh/hook": test
 spec:

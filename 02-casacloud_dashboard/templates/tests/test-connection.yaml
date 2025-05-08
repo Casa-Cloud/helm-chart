@@ -9,5 +9,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "nodejstemplate.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ .Values.name }}-svc:{{ .Values.service.port }}']
   restartPolicy: Never

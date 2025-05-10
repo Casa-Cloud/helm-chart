@@ -1,6 +1,6 @@
 global:
   namespace: ""
-name: casacloud-dashboard
+name: casacloud-backend
 replicaCount: 1
 image:
   repository: ""

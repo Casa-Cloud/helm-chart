@@ -25,3 +25,8 @@ spec:
               value: "{{ .Values.env.SWAGGER_ENABLE }}"
             - name: PORT
               value: "{{ .Values.env.APP_PORT }}"
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "200m"
